@@ -1,0 +1,862 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Framework," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="从 setContentView 走进 Android前言说起 setContentView，大家肯定不陌生，从名字上理解就能知道它设置内容的视图，很多人觉得现在网上关关于它的资料很多，但是为什么我还是重复制造轮子，这里我想说的是，自己花时间去整理的内容，期间你学到的内容是很多的，站在更高的基础上也会有更多的收获，比如 AppCompatActivity的流程分析，现在as使用的都是AppComp">
+<meta name="keywords" content="Android,Framework">
+<meta property="og:type" content="article">
+<meta property="og:title" content="带你走进android">
+<meta property="og:url" content="https://kehanchenk.github.io/2017/05/20/从 setContentView 走进 Android/index.html">
+<meta property="og:site_name" content="cosmoK&#39;blog">
+<meta property="og:description" content="从 setContentView 走进 Android前言说起 setContentView，大家肯定不陌生，从名字上理解就能知道它设置内容的视图，很多人觉得现在网上关关于它的资料很多，但是为什么我还是重复制造轮子，这里我想说的是，自己花时间去整理的内容，期间你学到的内容是很多的，站在更高的基础上也会有更多的收获，比如 AppCompatActivity的流程分析，现在as使用的都是AppComp">
+<meta property="og:image" content="http://i.imgur.com/2d4PYCb.png">
+<meta property="og:image" content="http://i.imgur.com/ywCBBao.png">
+<meta property="og:image" content="http://i.imgur.com/L52oCft.png">
+<meta property="og:image" content="http://i.imgur.com/92kYkp0.png">
+<meta property="og:image" content="http://i.imgur.com/Y0SLvmm.png">
+<meta property="og:image" content="http://i.imgur.com/QL7r2t3.png">
+<meta property="og:image" content="http://i.imgur.com/DKnyPLM.png">
+<meta property="og:image" content="http://i.imgur.com/DCtOvIm.png">
+<meta property="og:image" content="http://i.imgur.com/BpI0WNC.png">
+<meta property="og:image" content="http://i.imgur.com/H3jSXMk.png">
+<meta property="og:image" content="http://i.imgur.com/6qaD4mX.png">
+<meta property="og:image" content="http://i.imgur.com/9uQC5lK.png">
+<meta property="og:image" content="http://i.imgur.com/Z5f3q6i.png">
+<meta property="og:image" content="http://i.imgur.com/Wj0JG75.png">
+<meta property="og:image" content="http://i.imgur.com/G45tgaH.png">
+<meta property="og:image" content="http://i.imgur.com/NFiwhQA.png">
+<meta property="og:image" content="http://i.imgur.com/8Q6WmuY.png">
+<meta property="og:image" content="http://i.imgur.com/2JsNYPM.png">
+<meta property="og:image" content="http://i.imgur.com/ddCUDMF.png">
+<meta property="og:image" content="http://i.imgur.com/A7JzkRs.png">
+<meta property="og:image" content="http://i.imgur.com/o53RVtt.png">
+<meta property="og:image" content="http://i.imgur.com/AOsWi7f.png">
+<meta property="og:image" content="http://i.imgur.com/5IBgg6T.png">
+<meta property="og:image" content="http://i.imgur.com/1Xt3QoF.png">
+<meta property="og:updated_time" content="2017-05-22T08:49:10.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="带你走进android">
+<meta name="twitter:description" content="从 setContentView 走进 Android前言说起 setContentView，大家肯定不陌生，从名字上理解就能知道它设置内容的视图，很多人觉得现在网上关关于它的资料很多，但是为什么我还是重复制造轮子，这里我想说的是，自己花时间去整理的内容，期间你学到的内容是很多的，站在更高的基础上也会有更多的收获，比如 AppCompatActivity的流程分析，现在as使用的都是AppComp">
+<meta name="twitter:image" content="http://i.imgur.com/2d4PYCb.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kehanchenk.github.io/2017/05/20/从 setContentView 走进 Android/"/>
+
+
+
+
+
+  <title>带你走进android | cosmoK'blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cosmoK'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">坚持自己想做的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kehanchenk.github.io/2017/05/20/从 setContentView 走进 Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柯翰辰k">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cosmoK'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">带你走进android</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T10:13:55+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="从-setContentView-走进-Android"><a href="#从-setContentView-走进-Android" class="headerlink" title="从 setContentView 走进 Android"></a>从 setContentView 走进 Android</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起 setContentView，大家肯定不陌生，从名字上理解就能知道它设置内容的视图，很多人觉得现在网上关关于它的资料很多，但是为什么我还是重复制造轮子，这里我想说的是，自己花时间去整理的内容，期间你学到的内容是很多的，站在更高的基础上也会有更多的收获，比如 AppCompatActivity的流程分析，现在as使用的都是AppCompatActivity，你不应该去了解 AppCompatActivity ？ 还有关于 Google 是如何去适配不同版本的。AppCompatActivity 和 Activity 的UI分析流程有什么不同？ 这些都需要你自己亲自去实践才能明白 Google工程师在背后所做的努力。  </p>
+<p>而以上的疑问我都在下文能一一解答，只要你用心看肯定是能收获的，下面我会俩个方面去分析，先分析 Activity ，然后是AppCompatActivity的UI绘制流程，期间我也会解答很多关于平时你遇到的问题，从 setContentView 走近 Framework 。</p>
+<a id="more"></a>
+<h4>关于如何去阅读源码</h4>
+
+<p>如果有经验的可以直接跳过，对于源码阅读有限的可以参考</p>
+<ul>
+<li>阅读源码一定要有线索，带着问题去研究源码(比如研究 setContentView 抓住主线程，对其他的暂时忽略，等研究完主线程，再消化个别细节)</li>
+<li>源码报错？其实源码内容在，对阅读研究源码影响不大。</li>
+<li>找不到类？学会使用搜索，比如本文 Phonewindow 类可能代码跳转无法进入，试试双击 Shift 直接搜索。或者查找文件 ctrl+shift+N<br>查找类中方法快捷键：ctrl+F12 。源码太长？找不到当前方法？ctrl+F12 搜索方法。如果没有源码直接去 SDk Manager 下载。</li>
+</ul>
+<p></p><h4> 一. 从setContentView开始，了解view的加载过程</h4><br><br><br>  setContentView 到底做了什么，为什么调用之后就能加载我们想要的布局文件？我们从Activity 的 setContentView 开始， 而它通过 Window 类调取的方法，而 Window 是抽象类。最终调用的是 PhoneWindow 这个实现类的 setContentView 方法。Phonewindow 又是如何来的呢？这个先剧透，Activity 的启动过程中的 attach() 方法创建的。<p></p>
+<p><img src="http://i.imgur.com/2d4PYCb.png" alt=""></p>
+<p>  其中 mContentParent 其实就是装载界面最外层的ViewGroup ，分析：首先如果当前Viewgroup为空，则执行installDecor();</p>
+<p><img src="http://i.imgur.com/ywCBBao.png" alt=""></p>
+<p>分析：截取方法的前一部分，mDecor 是什么呢？其实就是感觉都见过的 DecorView (Google 对它的注释是：它是 window 窗口的顶级视图，同时包括widow 的装饰。抽象不容易理解，下文就会揭开它到底是什么鬼？和我们的布局关系是什么)</p>
+<p><img src="http://i.imgur.com/L52oCft.png" alt=""></p>
+<p>DecorView 具体是作为什么存在的，且看分析：上述代码的意思是当 mDecor 为空执行generateDecor。很多博客分析都是默认为空，直接执行。缺乏说服力。那他是否为空呢？<br>接着看代码：</p>
+<p><img src="http://i.imgur.com/92kYkp0.png" alt=""></p>
+<p>分析：其实在 PhoneWindow 的构造方法中就新建了 <a name="decorview" style="text-decoration:none">DecorView</a>，通过 getDecorView() 创建当前 DecorView。我们继续看下这个方法的实现：</p>
+<p><img src="http://i.imgur.com/Y0SLvmm.png" alt=""></p>
+<p>是否恍然大悟了？installDecor() 方法似曾相识，就是上文的 installDecor()，所以其实在 PhoneWindow 的构造方法最终执行的是 installDecor() 方法，所以不管 mDecor 是否为 null，它都是执行了该方法创建的 DecorView 的。 我们回到 installDecor() 中，如果 mDecor (DecorView) 是null，通过 generateDecor() 方法创建一个 DecorView。【方法图示代码在下文】当 DecorView 创建成功之后，接下来就是通过 generateLayout 创建 mContentParent。(mContentParent 是一个 Viewgroup 对象)</p>
+<p><img src="http://i.imgur.com/QL7r2t3.png" alt=""></p>
+<p>分析：generateDecor() 方法相对而已逻辑很清晰，上述代码只是判断了 context 对象，最后返回值很暴力直接 new DecorView 返回结果</p>
+<p><img src="http://i.imgur.com/DKnyPLM.png" alt=""></p>
+<p>分析：generateLayout() 方法很长，我截取俩部分，上半部分首先它是通过获取 windowstyle. 判断布局是否是 dialog ，接下来是解析是否为 Activity 设置主题，标题栏等，源码这段代码很长，可以通过查看源码分析，很容易入手的代码，在你们分析这段代码中，注意这段代码:</p>
+<p><img src="http://i.imgur.com/DCtOvIm.png" alt=""></p>
+<p>注：我们平时会遇到的问题，获取 requestFeature 必须在 setContentView 之前设置。因为在这里获取本地配置的 LocalFeatures，所以你必须在之前设置 requestFeature，也就是 setContentView</p>
+<p>继续分析下半部分：</p>
+<p><img src="http://i.imgur.com/BpI0WNC.png" alt=""></p>
+<p>分析：这段代码承接之前，是通过获取本地配置的主题，或者 Activity 设置的属性，通过这些属性去针对性加载不同的 xml 资源。这就是我们 Activity 选择不同的主题，界面显示不一样的原因。因为每一个主题都会加载不同的 xml 资源布局。当通过 feature 选择不同的主题之后接下来就是如何把我们自己写的布局加载上。此处我取其中一个布局(R.layout.screen_title)作为例子分析。</p>
+<p><img src="http://i.imgur.com/H3jSXMk.png" alt=""></p>
+<p>分析：上图同样是 generateLayout 的后半部分，为什么需要单独提出，就是因为这里解释了 DecorView 为什么是顶级视图。<br>上图中通过id获取到 viewGroup 对象 id 其实就是 com.android.internal.R.id.content,就是下图xml中的 content 对象</p>
+<p><b>如果解释 DecorView 作为顶级View 就是接下来的关键代码：</b></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mDecor.onResourcesLoaded(mLayoutInflater, layoutResource);</div></pre></td></tr></table></figure>
+<p>layoutResource 是我们作为例子的 xml 文件， DecorView 通过以上方法解析主题文件提供最上层的 xml 资源文件，并且将解析的 view执行 addView() 方法作为最外层的View，而我们做的只是其实是将 提供的xml 文件内容部分解析加载，也就是为什么方法名字叫做 setCOntentView 了。</p>
+<p><img src="http://i.imgur.com/6qaD4mX.png" alt=""></p>
+<p> 分析：onResourcesLoaded 将最外层的布局通过 addView() ,其实就是添加到了 DecorView 中，而 DecorView 是如何如何被加载到屏幕上显示出来。这个都是 Activity 启动的过程中的操作。接下来的文章我会一一解答</p>
+<p><img src="http://i.imgur.com/9uQC5lK.png" alt=""></p>
+<p> xml 是：screen_title.xml 就是上文我们作为例子讲解的 layoutResource 的代码。</p>
+<p><img src="http://i.imgur.com/Z5f3q6i.png" alt=""></p>
+<p>分析：当通过 features 确定使用某个具体的 xml 文件后，首先是 DecorView 先解析通过主题确定的xml资源文件，然后获取xml资源文件中的 id 为 content 的FrameLayout 对象 (其实每一个不同的xml文件都会有一个相同 的id (R.id.content)的 FrameLayout )<br>最后其实 generateLayout() 方法就是把这个找到的id为content的对象 return 了。并且这个返回值 Viewgroup 其实就已经是 mContentParent 了。返回查看下对 generateLayout 的引用的方法 installDecor 。 它是什么？？？一脸懵逼？？ 哈哈。<br>想想我们分析这段代码的最初是从哪里入手的，我们是从 setContentView 开始分析的源码。现在回到 setCOntentView 中查看下， 最初从 installDecor() 分析下去，generateLayout() 方法返回的 mContentParent 对象，它其实就是我们最初方法里的 mContentParent 对象。 然后我们接着分析 setContentView(), 它在获得 mContentParent 这个viewgroup 对象后。接下去是判断了Activity 是否存在类似于转场动画之类的效果，如果有则先执行转场动画，没有则将我们分析的 mContentParent 对象（id 为 content 的 FrameLyout）。解析。看以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mLayoutInflater.inflate(layoutResID, mContentParent);//第一个参数就是我们提供的布局id</div></pre></td></tr></table></figure>
+<p>mLayoutInflater 布局解析器将我们通过 setContentView 传进去的 布局id 解析到 mContentParent 中。至此我们加载布局这一部分流程算正式告一段落。</p>
+<p><b>附：</b></p>
+<p>为了更好的理解这个这段代码：再提供一个结构图提供思路参考：</p>
+<p><img src="http://i.imgur.com/Wj0JG75.png" alt=""></p>
+<p>分析：你会发现所有的我们所有的view的绘制都是从DecorView开始的，通过xml文件加载设定好的 actionbar<br> 、title 和为我们提供自定义内容的 Framelayout。</p>
+<p>总结：回顾这段过程，带着问题去源码中寻找答案，针对线索去跟踪源码。我们从 Activity 的 setContentView() 开始，找到 Window 类，但是因为 window 是抽象类， 通过注释可以知道它有唯一的实现类 PhoneWindow ，我们查看实现类的方法 setContentView()，它通过 installDecor() 一步步创建DecorView，FrameLayout，到最后解析setContentView().整个过程其实并不复杂。</p>
+<p>我们进一步分析：其实每一个 Activity 都有一个关联的 Window 对象，用来呈现，描述应用程序窗口，每一个 window 对象 又包含了一个 DecorView 对象。而 DecorView 对象就是描述窗口的视图-就是对应的 xml 资源布局。 结构关系理解：</p>
+<p><img src="http://i.imgur.com/G45tgaH.png" alt=""></p>
+<ul>
+<li>Window 作为抽象类，提供通用的绘制窗口的 API。</li>
+<li>Phonewindow 作为具体实现类，同时包含 DecorView 对象，它是所有窗口的根 view</li>
+</ul>
+<h3>疑问</h3><br> 分析部分过程，其实还有具体没有细化的流程。比如 DecorView 如何添加到Window的？<br> 为什么xml能被解析成布局？<br> 下一篇章我会继续分析接下来的流程。<br><br><h3>二. AppCompatActivity的流程分析</h3>
+
+<p> 终于分析完 Activity 的流程，接下来我们继续分析，Google 工程师是如何做到只是替换一个 Activity 就能做到支持 Material design，同时兼容之前所有版本呢？下面我同样以最详细的方式解释源码中的奥秘。</p>
+<p> 在我们现在使用 as开 发，现在都是默认使用 AppCompatActivity 而不是 Activity，所以这套流程对于 AppCompatActivity 有那么一点不适用，整体的过程肯定还是对的，只是 google 做了很多适配工作，AppCompatActivity 中 setContentView 方法是通过了代理</p>
+<p><img src="http://i.imgur.com/NFiwhQA.png" alt=""></p>
+<p>分析：在 AppCompatActivity 的 setContentView 是调用 getDelegate() 的，但是返回的 AppCompatDelegate 其实是抽象类，直接查找返回的 create() ,我们能知道它有着很多实现类。</p>
+<p><img src="http://i.imgur.com/8Q6WmuY.png" alt=""></p>
+<p>分析： 可以看到 AppCompatDelegate 不同的 version 有着不同的版本，但是其实随着版本提高他们的实现类其实是逐级实现的。换句话说<br>AppCompatDelegateImplN extends AppCompatDelegateImplV23 ，而 AppCompatDelegateImplV23 extends AppCompatDelegateImplV14 ,类推，随着版本的提高去新的实现类去拓展，同时兼容低版本，这样的设计其实就是符合 Android 向下兼容的特性的。回到代码中， getDelegate().setContentView() ,那他的实现类中去查线索，基于兼容，其实只在 AppCompatDelegateImplV9 中实现了 setContentView();</p>
+<p><img src="http://i.imgur.com/2JsNYPM.png" alt=""></p>
+<p>分析：AppCompatDelegateImplV9 的 setContentView 实现 ,进一步查看 ensureSubDecor() ,从下面代码可以知道我们还需要查看 createSubDecor()。</p>
+<p><img src="http://i.imgur.com/ddCUDMF.png" alt=""></p>
+<p><img src="http://i.imgur.com/A7JzkRs.png" alt=""></p>
+<p>分析：在这段代码中，其实我们能发现和 Activity 分析是类似的，首先也是先获取 AppCompatTheme 主题 ，不同的是由于兼容 material design 必须要实现 AppCompatTheme 主题，代码中也很明确如果获取的属性没有 AppCompatTheme_windowActionBar 会抛出异常。这就是当平时我们使用 AppCompatActivity 的时候但是没有使用 windowNoTitle 属性会报错的原因。<br>接下来到了关键的这段代码：</p>
+<pre style="font-size:15px; color:red ">mWindow.getDecorView();</pre>
+
+<p>不知道是否还有印象，这个是在 Activity 的分析中出现过，<a href="#decorview">回到过去</a>,在之前的分析中我们知道它其实是调用PhoneWindow，走的流程是Activity的流程，通过 installDecor() 方法 到 generateLayout() ,此处再强调下 generateLayout() 的返回值如上文分析，返回值是id为 content 的FrameLayout ，而现在其实还是同样的会按照之前分析，DecorView其实和之前没有区别的。接着代码下一部分分析。</p>
+<p><img src="http://i.imgur.com/o53RVtt.png" alt=""></p>
+<p>分析：这段代码是承接上图的。此处重新定义新的 viewgroup 对象 subDecor，首先做了一个判断 mWindowNoTitle，它是什么？其实对主题是否设置 Window.FEATURE_NO_TITLE，是则为 false，它的赋值是 我们上文中 createSubDecor() 这个方法的  requestWindowFeature(Window.FEATURE_NO_TITLE)，这个方法判断赋值为 true ， 这段代码是通过是否设置主题，是否支持 Actionbar 来判断 subDecor 来加载对应的布局，或是否设置 FEATURE_NO_TITLE 来显示隐藏 title 内容的</p>
+<p>接下里的分析如何做到一个巧妙的替换：</p>
+<p><img src="http://i.imgur.com/AOsWi7f.png" alt=""></p>
+<p>分析：上图重要代码我已经标注，首先 subDecor 我们新的 viewgroup，并且是已经赋值相应布局的。接下来的<pre style="color:red">mWindow.findViewById(android.R.id.content);</pre> </p>
+<p>他拿到的是 <b style="color:red">mWindow.getDecorView();</b> 然后走的Activity分析的流程的返回的结果。接下来它判断了 content 可能已将视图添加到窗口的内容视图中，因此需要将其迁移到我们的内容视图中。然后才是重点，原来的 content 的 id抹除，而把这边 subDecor 的新主题中的内容视图的 id 改为了 content！然后把整个 subDecor 都 setContentView 给了 window。而他的实现其实都是 Phonewindow。</p>
+<p><img src="http://i.imgur.com/5IBgg6T.png" alt=""></p>
+<p>分析：上图的 setContentView 实现，其实是执行俩个参数的方法，前半部分因为 mContentParent 不为null，所以不会执行 installDecor(), 最后把我们新建的 subDecor 的添加到了 mContentParent上。<br>然后我们回到最初 AppCompatDelegateImplV9 的 setContentView() 方法中。</p>
+<p><img src="http://i.imgur.com/1Xt3QoF.png" alt=""></p>
+<p>分析： mSubDecor 这个其实就是之前  mSubDecor = createSubDecor(); 返回的 Viewgroup ，就是我们上文的 subDecor. 那就是现在获得的 content 就是变换过的，然后通过 LayoutInflater 去解析我们自己写的布局到 content上。至此整个 AppCompatActivity 的分析就结束了。也就是关系适配工作结束。剩下的就是渲染 xml 资源。</p>
+<p>小结：Google 为了适配，在不影响之前的版本，采用的方法是在基础上重新加了一层，首先UI的分析 Activity 还是会执行，然后如果是 AppCompatActivity 才会执行获取他特有的主题，进一步获取布局文件，将布局文件放在新的 Viewgroup 上，然后把之前的 id 做修改，把原本是 content 的赋值给新的Viewgroup ，然后之前的 id 为 content 直接 addview</p>
+<p>如果不熟悉可以再看看上文的内容，对照源码学习会有意想不到的收获。</p>
+<h3>一点点感悟</h3>
+
+<p>整个流程下来有没有决定 Google 工程师其实在代码的实现上也是很有想法的，或者说其实也是无奈之举，由于Android 的开源性，造成了市场上其实各个版本参差不齐，而 android 势必要发展，但是为了适配缺一直是难题，相对于ios的闭源环境，每一个 ios 都再自己的控制范围内，利于管理。因为开源成功，但是有得有失，随着Android适配工作不断进行，代码会越来越臃肿。这是不是 google 想研发新的系统的动力呢？时间给出答案。</p>
+<h3>结语</h3>
+
+<p> 此文作为博文开篇，分享给大家自己的理解，希望能帮助能帮助的人，同时也更加希望能给我提出文章的不足或者漏洞，以此共勉！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-Framework/" rel="tag"># Android,Framework</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/19/个人博客搭建记录/" rel="next" title="手机投屏教程">
+                <i class="fa fa-chevron-left"></i> 手机投屏教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="柯翰辰k" />
+          <p class="site-author-name" itemprop="name">柯翰辰k</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活注定不安婧</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kehanchenk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/af1b8a9a95d0" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从-setContentView-走进-Android"><span class="nav-number">1.</span> <span class="nav-text">从 setContentView 走进 Android</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.1.</span> <span class="nav-text">关于如何去阅读源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.2.</span> <span class="nav-text"> 一. 从setContentView开始，了解view的加载过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">二. AppCompatActivity的流程分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">一点点感悟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">结语</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">柯翰辰k</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
