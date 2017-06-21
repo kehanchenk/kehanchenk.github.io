@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
+<meta name="description" content="Paint 画笔的使用前言 最近一直在复习自定义View的内容，重新了解复习，前段时间从源码角度重新理解view的绘制流程，现在重新看自定义View有更多的收获。目前重新整理归纳了Paint的用法。以下做一个介绍和总结。 还有一个重点是最近在自定义view 的过程中终于明白了绘制文字的奥妙，以前总是觉得绘制文字的时候不能居中，画出来的控件不美观，原来是文字绘制有文字线谱，你得获得文字基线才能居中文">
 <meta name="keywords" content="Android,自定义View">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paint 画笔的使用">
 <meta property="og:url" content="https://kehanchenk.github.io/2017/06/21/Paint 的基本使用/index.html">
 <meta property="og:site_name" content="cosmoK&#39;blog">
-<meta property="og:description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
-<meta property="og:updated_time" content="2017-06-21T06:16:49.416Z">
+<meta property="og:description" content="Paint 画笔的使用前言 最近一直在复习自定义View的内容，重新了解复习，前段时间从源码角度重新理解view的绘制流程，现在重新看自定义View有更多的收获。目前重新整理归纳了Paint的用法。以下做一个介绍和总结。 还有一个重点是最近在自定义view 的过程中终于明白了绘制文字的奥妙，以前总是觉得绘制文字的时候不能居中，画出来的控件不美观，原来是文字绘制有文字线谱，你得获得文字基线才能居中文">
+<meta property="og:updated_time" content="2017-06-21T06:25:50.732Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paint 画笔的使用">
-<meta name="twitter:description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
+<meta name="twitter:description" content="Paint 画笔的使用前言 最近一直在复习自定义View的内容，重新了解复习，前段时间从源码角度重新理解view的绘制流程，现在重新看自定义View有更多的收获。目前重新整理归纳了Paint的用法。以下做一个介绍和总结。 还有一个重点是最近在自定义view 的过程中终于明白了绘制文字的奥妙，以前总是觉得绘制文字的时候不能居中，画出来的控件不美观，原来是文字绘制有文字线谱，你得获得文字基线才能居中文">
 
 
 
@@ -360,7 +360,11 @@
       
 
       
-        <h2 id="Paint-画笔的使用"><a href="#Paint-画笔的使用" class="headerlink" title="Paint 画笔的使用"></a>Paint 画笔的使用</h2><p><strong>Paint的基本使用</strong></p>
+        <h2 id="Paint-画笔的使用"><a href="#Paint-画笔的使用" class="headerlink" title="Paint 画笔的使用"></a>Paint 画笔的使用</h2><p><strong>前言</strong></p>
+<p>最近一直在复习自定义View的内容，重新了解复习，前段时间从源码角度重新理解view的绘制流程，现在重新看自定义View有更多的收获。目前重新整理归纳了Paint的用法。以下做一个介绍和总结。</p>
+<p>还有一个重点是最近在自定义view 的过程中终于明白了绘制文字的奥妙，以前总是觉得绘制文字的时候不能居中，画出来的控件不美观，原来是文字绘制有文字线谱，你得获得文字基线才能居中文字，想明白这个问题就往下哈好理解吧。</p>
+<a id="more"></a>
+<p>Paint 画笔的使用一般都在以下两个方面：</p>
 <ol>
 <li>负责绘制获取图形，路径相关的内容</li>
 </ol>
