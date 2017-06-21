@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,自定义View," />
 
 
 
@@ -90,15 +90,17 @@
 
 
 
-<meta name="description" content="生活注定不安婧">
-<meta property="og:type" content="website">
-<meta property="og:title" content="cosmoK&#39;blog">
-<meta property="og:url" content="https://kehanchenk.github.io/index.html">
+<meta name="description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
+<meta name="keywords" content="Android,自定义View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paint 画笔的使用">
+<meta property="og:url" content="https://kehanchenk.github.io/2017/06/21/Paint 的基本使用/index.html">
 <meta property="og:site_name" content="cosmoK&#39;blog">
-<meta property="og:description" content="生活注定不安婧">
+<meta property="og:description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
+<meta property="og:updated_time" content="2017-06-21T06:16:49.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cosmoK&#39;blog">
-<meta name="twitter:description" content="生活注定不安婧">
+<meta name="twitter:title" content="Paint 画笔的使用">
+<meta name="twitter:description" content="Paint 画笔的使用Paint的基本使用  负责绘制获取图形，路径相关的内容  123456789101112   1.setStyle(Paint.Style style) 	    设置画笔样式，取值有    Paint.Style.FILL :填充内部 Paint.Style.FILL_AND_STROKE ：填充内部和描边Paint.Style.STROKE ：仅描边、注意STROKE、">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://kehanchenk.github.io/"/>
+  <link rel="canonical" href="https://kehanchenk.github.io/2017/06/21/Paint 的基本使用/"/>
 
 
 
 
 
-  <title>cosmoK'blog</title>
+  <title>Paint 画笔的使用 | cosmoK'blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -158,9 +160,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-   page-home 
- ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -263,9 +263,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -291,9 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/21/Paint 的基本使用/" itemprop="url">Paint 画笔的使用</a></h1>
+          <h1 class="post-title" itemprop="name headline">Paint 画笔的使用</h1>
         
 
         <div class="post-meta">
@@ -362,9 +360,7 @@
       
 
       
-        
-          
-            <h2 id="Paint-画笔的使用"><a href="#Paint-画笔的使用" class="headerlink" title="Paint 画笔的使用"></a>Paint 画笔的使用</h2><p><strong>Paint的基本使用</strong></p>
+        <h2 id="Paint-画笔的使用"><a href="#Paint-画笔的使用" class="headerlink" title="Paint 画笔的使用"></a>Paint 画笔的使用</h2><p><strong>Paint的基本使用</strong></p>
 <ol>
 <li>负责绘制获取图形，路径相关的内容</li>
 </ol>
@@ -384,459 +380,72 @@
 <p><strong>其中涉及的  Paint.FontMetrics   Paint.FontMetricsInt</strong> </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">内部存在top，ascent，desent, bottom, leading几个属性</div><div class="line"></div><div class="line">top = top线的y坐标 - baseline线的y坐标</div><div class="line">bottom = bottom线的y坐标 - baseline线的y坐标</div><div class="line">ascent = ascent线的y坐标 - baseline线的y坐标</div><div class="line">desent = desent线的y坐标 - baseline线的y坐标</div><div class="line"></div><div class="line"><span class="number">1</span>、A = B = （bottom - top）/<span class="number">2</span></div><div class="line">bottom = baseline + FontMetrics.bottom</div><div class="line">top = baseline + FontMetrics.top</div><div class="line"></div><div class="line">---&gt; A = B = (FontMetrics.bottom - FontMetrics.top)/ <span class="number">2</span></div><div class="line"></div><div class="line"><span class="number">2</span>、C =  B - （bottom - baseline）</div><div class="line">     =  B - FontMetrics.bottom</div><div class="line"></div><div class="line"><span class="number">3</span>、C = baseline - center</div><div class="line">	</div><div class="line">综上可得</div><div class="line">baseline - center = （FontMetrics.bottom - FontMetrics.top）/<span class="number">2</span> - FontMetrics.bottom</div><div class="line"></div><div class="line">绘制的文字Y方向就是通过以下方式得出：</div><div class="line">baseline = center +（FontMetrics.bottom - FontMetrics.top）/<span class="number">2</span> - FontMetrics.bottom</div><div class="line">  </div><div class="line">下面提供实际使用的例子：</div><div class="line"> </div><div class="line"> 通过调用的画笔获得 Paint.FontMetricsInt</div><div class="line"> Paint.FontMetricsInt fm = paint.getFontMetricsInt();</div><div class="line"></div><div class="line"> 绘制文字，直接按照公式就能正确显示文字绘制的位置</div><div class="line"> canvas.drawText(precentStr, getWidth() / <span class="number">2</span> , getWidth() / <span class="number">2</span> + (fm.bottom - fm.top) / <span class="number">2</span> -         fm.bottom, paint);</div></pre></td></tr></table></figure>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kehanchenk.github.io/2017/05/20/从 setContentView 走进 Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柯翰辰k">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cosmoK'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/20/从 setContentView 走进 Android/" itemprop="url">带你走进android</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T10:13:55+08:00">
-                2017-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Android-自定义View/" rel="tag"># Android,自定义View</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <h2 id="从-setContentView-走进-Android"><a href="#从-setContentView-走进-Android" class="headerlink" title="从 setContentView 走进 Android"></a>从 setContentView 走进 Android</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起 setContentView，大家肯定不陌生，从名字上理解就能知道它设置内容的视图，很多人觉得现在网上关关于它的资料很多，但是为什么我还是重复制造轮子，这里我想说的是，自己花时间去整理的内容，期间你学到的内容是很多的，站在更高的基础上也会有更多的收获，比如 AppCompatActivity的流程分析，现在as使用的都是AppCompatActivity，你不应该去了解 AppCompatActivity ？ 还有关于 Google 是如何去适配不同版本的。AppCompatActivity 和 Activity 的UI分析流程有什么不同？ 这些都需要你自己亲自去实践才能明白 Google工程师在背后所做的努力。  </p>
-<p>而以上的疑问我都在下文能一一解答，只要你用心看肯定是能收获的，下面我会俩个方面去分析，先分析 Activity ，然后是AppCompatActivity的UI绘制流程，期间我也会解答很多关于平时你遇到的问题，从 setContentView 走近 Framework 。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/20/从 setContentView 走进 Android/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/20/从 setContentView 走进 Android/" rel="next" title="带你走进android">
+                <i class="fa fa-chevron-left"></i> 带你走进android
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kehanchenk.github.io/2017/05/19/个人博客搭建记录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柯翰辰k">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cosmoK'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/19/个人博客搭建记录/" itemprop="url">手机投屏教程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T19:34:25+08:00">
-                2017-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/chrome/" itemprop="url" rel="index">
-                    <span itemprop="name">chrome</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="手机投影至电脑屏幕教程"><a href="#手机投影至电脑屏幕教程" class="headerlink" title="手机投影至电脑屏幕教程"></a>手机投影至电脑屏幕教程</h1><p>近期由于公司BD部门需要一个满足两台电脑同时显示投屏，对于技术小白的他们，我只好给他们一个小白教程，既然整理了就再次记录下教程。</p>
-<p>下面介绍一下，手机投影至电脑屏幕的方法了！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/19/个人博客搭建记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kehanchenk.github.io/2017/05/19/手机投影屏幕教程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柯翰辰k">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cosmoK'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/19/手机投影屏幕教程/" itemprop="url">Personal blog build record</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T19:34:25+08:00">
-                2017-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/personal/" itemprop="url" rel="index">
-                    <span itemprop="name">personal</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to cosmoK’blog ! This is my very first post. If you get any problems when reading article, you can find the answer in Gmail or you can ask me on <a href="https://github.com/kehanchenk" target="_blank" rel="external">GitHub</a>.</p>
-<p>Every time there is an idea to build their own blog, Now i did it. thousands of miles begins with a single step.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/19/手机投影屏幕教程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -844,6 +453,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -863,8 +476,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -946,6 +568,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paint-画笔的使用"><span class="nav-number">1.</span> <span class="nav-text">Paint 画笔的使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1064,6 +702,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
