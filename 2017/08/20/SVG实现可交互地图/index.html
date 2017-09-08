@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android," />
+  <meta name="keywords" content="Android SVG," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="使用SVG实现交互式地图前言说起 SVG，大家肯定都已经使用过，但是如何更深刻的去探究svg，以及利用它和自定义View结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
-<meta name="keywords" content="Android">
+<meta name="description" content="使用 SVG 实现交互式地图前言说起  SVG ，大家肯定都已经使用过，但是如何更深刻的去探究 svg ，以及利用它和自定义 View 结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
+<meta name="keywords" content="Android SVG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="svg实现可交互地图">
 <meta property="og:url" content="https://kehanchenk.github.io/2017/08/20/SVG实现可交互地图/index.html">
 <meta property="og:site_name" content="cosmoK&#39;blog">
-<meta property="og:description" content="使用SVG实现交互式地图前言说起 SVG，大家肯定都已经使用过，但是如何更深刻的去探究svg，以及利用它和自定义View结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
+<meta property="og:description" content="使用 SVG 实现交互式地图前言说起  SVG ，大家肯定都已经使用过，但是如何更深刻的去探究 svg ，以及利用它和自定义 View 结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
 <meta property="og:image" content="https://i.imgur.com/cHurfU9.gif">
-<meta property="og:updated_time" content="2017-09-08T12:18:17.175Z">
+<meta property="og:updated_time" content="2017-09-08T12:29:55.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="svg实现可交互地图">
-<meta name="twitter:description" content="使用SVG实现交互式地图前言说起 SVG，大家肯定都已经使用过，但是如何更深刻的去探究svg，以及利用它和自定义View结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
+<meta name="twitter:description" content="使用 SVG 实现交互式地图前言说起  SVG ，大家肯定都已经使用过，但是如何更深刻的去探究 svg ，以及利用它和自定义 View 结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。">
 <meta name="twitter:image" content="https://i.imgur.com/cHurfU9.gif">
 
 
@@ -362,19 +362,19 @@
       
 
       
-        <h2 id="使用SVG实现交互式地图"><a href="#使用SVG实现交互式地图" class="headerlink" title="使用SVG实现交互式地图"></a>使用SVG实现交互式地图</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起 SVG，大家肯定都已经使用过，但是如何更深刻的去探究svg，以及利用它和自定义View结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。</p>
+        <h2 id="使用-SVG-实现交互式地图"><a href="#使用-SVG-实现交互式地图" class="headerlink" title="使用 SVG 实现交互式地图"></a>使用 SVG 实现交互式地图</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起  SVG ，大家肯定都已经使用过，但是如何更深刻的去探究 svg ，以及利用它和自定义 View 结合制作更加复杂的控件，这样才能通过不断的实践去提高自己。</p>
 <a id="more"></a>
 <p>如何制作呢？首先先上一个效果图。</p>
 <p><img src="https://i.imgur.com/cHurfU9.gif" alt=""></p>
 <h4>如何实现？</h4>
 
-<p>SVG 的特性就是通过Path去绘制，而我们可以拆分每一个path，分别实现</p>
+<p>SVG 的特性就是通过Path去绘制，而我们就是利用path绘制每一个省份，我们拼接成完整的地图。</p>
 <ul>
 <li>获得地图的svg图片     <a href="https://www.amcharts.com/dl/javascript-maps/" target="_blank" rel="external">https://www.amcharts.com/dl/javascript-maps/</a>  可以在该链接下下载世界任意一个国家地图</li>
 <li>svg 转化成 Vector Drawable   Vector就是Android中的SVG实现(并不是支持全部的SVG语法,现已支持的完全足够用了)   利用 <a href="http://inloop.github.io/svg2android/" target="_blank" rel="external">http://inloop.github.io/svg2android/</a> 转化</li>
 <li>解析获得的地图中每一个PATH，分别绘制</li>
 <li>交互式地图，判断触摸位置</li>
-<li>完成适配工作</li>
+<li>地图的适配工作</li>
 </ul>
 <p></p><h4> 实现过程</h4><br><br><br>  前面两步直接完成，这里不再阐述，在得到 Vector  之后，我们需要xml解析，此处利用docounmet解析。<p></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">              InputStream stream = mContext.getResources().openRawResource(R.raw.chinamap);</div><div class="line">              DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder(); <span class="comment">//解析输入流 得到Docunmet实例</span></div><div class="line">              Document document = builder.parse(stream);  <span class="comment">//解析document</span></div><div class="line"></div><div class="line">              NodeList items = document.getElementsByTagName(<span class="string">"path"</span>);</div><div class="line">            </div><div class="line">              <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; items.getLength(); i++) &#123;</div><div class="line"></div><div class="line">                  Element element = (Element) items.item(i);</div><div class="line"></div><div class="line">                  String pathData = element.getAttribute(<span class="string">"android:pathData"</span>);</div><div class="line">                  <span class="comment">//获得每一个省份的path</span></div><div class="line">                  Path path = PathParser.createPathFromPathData(pathData);</div></pre></td></tr></table></figure>
@@ -387,16 +387,16 @@
 <p>这里在Android中通过path绘制的图形，能够在以下的方式中完成判断</p>
 <p>这里会介绍一个类 Region 它是区域的意思，就是能截图屏幕中一块区域。如何截取？就通过 RectF 去限定一个区域，PATH能获取自己的边界， Region 通过 setPath方法，能在path限定的边界中，截取path绘制的图形的部分通过 contains方法就行判断处当前点击的位置是否在区域内。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//构造一个区域对象</div><div class="line"> RectF rectF = new RectF();</div><div class="line"> //计算控制点边界</div><div class="line"> mPath.computeBounds(rectF, true);</div><div class="line"> Region region = new Region();</div><div class="line"> //设置区域路径和剪辑描述的区域</div><div class="line"> region.setPath(mPath, new Region((int) rectF.left, (int) rectF.top, (int) rectF.right, (int) rectF.bottom));</div><div class="line"> //</div><div class="line">  region.contains((int) x, (int) y);</div></pre></td></tr></table></figure>
-<p>到此处基本上就能完成对完成地图的逻辑，难点都在此处阐述。完成代码会在文章最后给出</p>
-<p>接下来就是适配工作，如果去让地图能放缩？我们不仅仅需要获取完成控件本身的测量，如果得到地图的大小才能完成放缩，而地图的大小是每一个path组成的，就是说我们只能知道每一个path的大小，但是不能得到整个地图的大小，这里我们的解决办法是去遍历path，取四个方向path的最值，这样得到的边界就是地图本身的大小。</p>
+<p>到此处基本上就能完成可交互地图的编写，完成地图的逻辑，难点都在此处阐述。完整的代码会在文章最后给出。</p>
+<p>接下来就是适配工作，如果去让地图能放缩？我们不仅仅需要获取控件本身的宽高，还要知道svg图片的大小，如何得到地图的大小？而地图的大小是每一个path组成的，就是说我们只能知道每一个path的大小，但是不能得到整个地图的大小，这里我们的解决办法是去遍历path，取四个方向path的最值，这样得到的边界就是地图本身的大小。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义四个方向</span></div><div class="line"> <span class="keyword">float</span> left = -<span class="number">1</span>;</div><div class="line"> <span class="keyword">float</span> right = -<span class="number">1</span>;</div><div class="line"> <span class="keyword">float</span> top = -<span class="number">1</span>;</div><div class="line"> <span class="keyword">float</span> bottom = -<span class="number">1</span>;</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; items.getLength(); i++) &#123;</div><div class="line"></div><div class="line">     Element element = (Element) items.item(i);</div><div class="line"></div><div class="line">     String pathData = element.getAttribute(<span class="string">"android:pathData"</span>);</div><div class="line"></div><div class="line">     <span class="comment">//遍历获取每一个path的同时去判断每一个path对应方向的最值</span></div><div class="line">     Path path = PathParser.createPathFromPathData(pathData);</div><div class="line"></div><div class="line">     RectF rectF = <span class="keyword">new</span> RectF();</div><div class="line">     path.computeBounds(rectF, <span class="keyword">true</span>);</div><div class="line"></div><div class="line">     left = left == -<span class="number">1</span> ? rectF.left : Math.min(rectF.left, left);</div><div class="line">     top = top == -<span class="number">1</span> ? rectF.top : Math.min(rectF.top, top);</div><div class="line"></div><div class="line">     right = right == -<span class="number">1</span> ? rectF.right : Math.max(rectF.right, right);</div><div class="line">     bottom = bottom == -<span class="number">1</span> ? rectF.bottom : Math.max(rectF.bottom, bottom);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"> <span class="comment">//此处获取的就是地图的大小</span></div><div class="line"> mRectF = <span class="keyword">new</span> RectF(left, top, right, bottom);</div></pre></td></tr></table></figure>
-<p>在 onMeasure完成控件的测量</p>
+<p>在 onMeasure完成mapview的测量 默认高度，获得参考高度，这样不会造成宽高比例失调的情况</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</div><div class="line">      super.onMeasure(widthMeasureSpec, heightMeasureSpec);</div><div class="line"></div><div class="line">      int widthmode = MeasureSpec.getMode(widthMeasureSpec);</div><div class="line">      int widthsize = MeasureSpec.getSize(widthMeasureSpec);</div><div class="line"></div><div class="line">      int heightmode = MeasureSpec.getMode(heightMeasureSpec);</div><div class="line">      int heightsize = MeasureSpec.getSize(heightMeasureSpec);</div><div class="line"></div><div class="line"></div><div class="line">      mViewwidth = widthsize;</div><div class="line">      mViewheight = heightsize;</div><div class="line"></div><div class="line">      switch (widthmode) &#123;</div><div class="line">          case MeasureSpec.EXACTLY:</div><div class="line">              mViewwidth = widthsize &gt; minWidth ? widthsize : minWidth;</div><div class="line">              break;</div><div class="line">          case MeasureSpec.AT_MOST:</div><div class="line">          case MeasureSpec.UNSPECIFIED:</div><div class="line">              mViewwidth = minWidth;</div><div class="line">              break;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      //得到参考高度</div><div class="line">      int computHeight = minHeight * mViewheight / minHeight;</div><div class="line"></div><div class="line">      switch (heightmode) &#123;</div><div class="line">          //布局中写死了dp</div><div class="line">          case MeasureSpec.EXACTLY:</div><div class="line">              mViewheight = heightsize;</div><div class="line">              break;</div><div class="line">          case MeasureSpec.AT_MOST:</div><div class="line">          case MeasureSpec.UNSPECIFIED:</div><div class="line">              //对照参考高度，取最大值</div><div class="line">              mViewheight = minHeight &gt; computHeight ? minHeight : computHeight;</div><div class="line">              break;</div><div class="line">      &#125;</div><div class="line"></div><div class="line"></div><div class="line">      setMeasuredDimension(MeasureSpec.makeMeasureSpec(mViewwidth, MeasureSpec.EXACTLY),</div><div class="line">              MeasureSpec.makeMeasureSpec(mViewheight, MeasureSpec.EXACTLY));</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 <p>利用控件宽高和图片本身大小实现完美放缩</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//宽度 的放缩比例</div><div class="line">scale = mViewwidth / mRectF.width();</div><div class="line">//高度的放缩比例</div><div class="line"> mScale2 = mViewheight / mRectF.height();</div><div class="line"> //取最小的放缩比例，适应所有</div><div class="line"> scale = Math.min(scale, mScale2);</div></pre></td></tr></table></figure>
 <p>控件的宽高设置，决定放缩比例，而放缩比例在 onDraw方法中完成对canvas的放缩，从而实现适配</p>
 <p>小结：</p>
-<p>过对地图的绘制，其实发现复杂的的自定义View，都是可以通过这样的方式取处理的，只要能有和原型图一样的SVG图片，我们利用这个方式就能完成自定义View，以后自定义View只要找UI要SVG图片就行了，哈哈</p>
+<p>利用SVG绘制可交互式地图，回想看看，整个过程其实同样可以使用自定义View的开发，只要能有和原型图一样的SVG图片，我们利用这个方式就能完成自定义View，以后自定义View只要找UI要SVG图片就行了，哈哈。</p>
 <p>最后附上代码链接 <a href="https://github.com/kehanchenk/workproject" target="_blank" rel="external">https://github.com/kehanchenk/workproject</a></p>
 <h3>结语</h3>
 
@@ -430,7 +430,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
+            <a href="/tags/Android-SVG/" rel="tag"># Android SVG</a>
           
         </div>
       
@@ -600,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用SVG实现交互式地图"><span class="nav-number">1.</span> <span class="nav-text">使用SVG实现交互式地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.1.</span> <span class="nav-text">如何实现？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.2.</span> <span class="nav-text"> 实现过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">结语</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-SVG-实现交互式地图"><span class="nav-number">1.</span> <span class="nav-text">使用 SVG 实现交互式地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.1.</span> <span class="nav-text">如何实现？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.2.</span> <span class="nav-text"> 实现过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">结语</span></a></li></ol></li></ol></div>
             
 
           </div>
