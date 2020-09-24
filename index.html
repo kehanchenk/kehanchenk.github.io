@@ -363,31 +363,14 @@
 
       
         
-          
-            <h2 id="ART与Dalvik-的区别"><a href="#ART与Dalvik-的区别" class="headerlink" title="ART与Dalvik 的区别"></a>ART与Dalvik 的区别</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="ART"><a href="#ART" class="headerlink" title="ART"></a>ART</h2><p><code>Android 4.4</code>提供了一种与<code>Dalvik</code>截然不同的运行环境<code>ART</code>支持,<code>ART</code>源于<code>google</code>收购的<code>Flexycore</code>的公司。<br><code>ART</code>模式与<code>Dalvik</code>模式最大的不同在于，启用<code>ART</code>模式后，系统在安装应用的时候会进行一次预编译，将字节码转换为机器语言存储在本地，<br>这样在运行程序时就不会每次都进行一次编译了，执行效率也大大提升。<br><code>ART</code>代表<code>Android Runtime</code>，其处理应用程序执行的方式完全不同于<code>Dalvik</code>，<code>Dalvik</code>是依靠一个<code>Just-In-Time</code> (<code>JIT</code>)编译器去解释字节码。<br>开发者编译后的应用代码需要通过一个解释器在用户的设备上运行，这一机制并不高效，但让应用能更容易在不同硬件和架构上运行。<br><code>ART</code>则完全改变了这套做法，在应用安装时就预编译字节码到机器语言，这一机制叫<code>Ahead-Of-Time</code>(<code>AOT</code>）编译。<br>在移除解释代码这一过程后，应用程序执行将更有效率，启动更快。总体的理念就是空间换时间。</p>
-<h2 id="Dalvik"><a href="#Dalvik" class="headerlink" title="Dalvik"></a>Dalvik</h2><p><code>Dalvik</code>是<code>Google</code>公司自己设计用于<code>Android</code>平台的<code>Java</code>虚拟机。它可以支持已转换为<code>.dex</code>（即<code>Dalvik Executable</code>）格式的<code>Java</code>应用程序的运行，<br><code>.dex</code>格式是专为<code>Dalvik</code>设计的一种压缩格式，适合内存和处理器速度有限的系统。<code>Dalvik</code>经过优化，允许在有限的内存中同时运行多个虚拟机的实例，<br>并且每一个<code>Dalvik</code>应用作为一个独立的<code>Linux</code>进程执行。独立的进程可以防止在虚拟机崩溃的时候所有程序都被关闭。</p>
-<p><code>AOT</code>的编译器分两种模式：            </p>
-<ul>
-<li>在开发机上编译预装应用；</li>
-<li>在设备上编译新安装的应用,在应用安装时将dex字节码翻译成本地机器码。</li>
-</ul>
-<p>ART优点:     </p>
-<ul>
-<li>系统性能的显著提升。</li>
-<li>应用启动更快、运行更快、体验更流畅、触感反馈更及时。</li>
-<li>更长的电池续航能力。</li>
-<li>支持更低的硬件。</li>
-</ul>
-<p>ART缺点:       </p>
-<ul>
-<li>更大的存储空间占用，可能会增加10%-20%。</li>
-<li>更长的应用安装时间。</li>
-</ul>
-<h3>结语</h3>
-
-<p> 工作原因，也有自己的原因好久没更新博客，此次带来关于中国地图的svg的自定义view，希望能给我提出文章的不足或者漏洞，以此共勉！</p>
-
-          
+          <h2 id="ART与Dalvik-的区别"><a href="#ART与Dalvik-的区别" class="headerlink" title="ART与Dalvik 的区别"></a>ART与Dalvik 的区别</h2><p>Android 4.4之后使用了ART虚拟机替换了Dalvik虚拟机，其中的原理以及优劣势是什么呢？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/20/ART与Dalvik的区别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
